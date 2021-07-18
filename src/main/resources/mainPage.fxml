@@ -25,7 +25,17 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="286.0">
                <children>
-                  <ListView fx:id="itemList" prefHeight="306.0" prefWidth="296.0" />
+                  <ListView fx:id="itemList" layoutY="61.0" prefHeight="246.0" prefWidth="298.0" />
+                  <TextField fx:id="searchField" layoutX="14.0" layoutY="13.0" prefHeight="30.0" prefWidth="196.0">
+                     <font>
+                        <Font name="Nirmala UI" size="14.0" />
+                     </font>
+                  </TextField>
+                  <Button layoutX="222.0" layoutY="13.0" mnemonicParsing="false" onAction="#searchItem" text="Search">
+                     <font>
+                        <Font name="Nirmala UI" size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="522.0">
@@ -45,9 +55,18 @@
                         <Font name="Nirmala UI" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="nameField" layoutX="60.0" layoutY="12.0" prefHeight="26.0" prefWidth="226.0" />
-                  <TextField fx:id="serialField" layoutX="113.0" layoutY="49.0" prefHeight="26.0" prefWidth="173.0" />
-                  <TextField fx:id="valueField" layoutX="60.0" layoutY="86.0" prefHeight="26.0" prefWidth="226.0" />
+                  <TextField fx:id="nameField" layoutX="60.0" layoutY="12.0" prefHeight="26.0" prefWidth="226.0">
+                     <font>
+                        <Font name="Nirmala UI" size="14.0" />
+                     </font></TextField>
+                  <TextField fx:id="serialField" layoutX="113.0" layoutY="49.0" prefHeight="26.0" prefWidth="173.0">
+                     <font>
+                        <Font name="Nirmala UI" size="14.0" />
+                     </font></TextField>
+                  <TextField fx:id="valueField" layoutX="60.0" layoutY="86.0" prefHeight="26.0" prefWidth="226.0">
+                     <font>
+                        <Font name="Nirmala UI" size="14.0" />
+                     </font></TextField>
                   <Button layoutX="106.0" layoutY="267.0" mnemonicParsing="false" onAction="#saveItem" text="Save Changes">
                      <font>
                         <Font name="Nirmala UI" size="14.0" />

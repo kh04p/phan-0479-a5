@@ -12,6 +12,9 @@ public class mainPageController {
     private ListView<String> itemList;
 
     @FXML
+    private TextField searchField;
+
+    @FXML
     private TextField nameField;
 
     @FXML
@@ -24,8 +27,15 @@ public class mainPageController {
     private ChoiceBox<?> sortChoiceBox;
 
     @FXML
-    void exportFile(ActionEvent event) {
+    void importFile(ActionEvent event) {
+        App App = new App();
+        App.changeScene("/importPage.fxml");
+    }
 
+    @FXML
+    void exportFile(ActionEvent event) {
+        App App = new App();
+        App.changeScene("/exportPage.fxml");
     }
 
     @FXML
@@ -34,12 +44,12 @@ public class mainPageController {
     }
 
     @FXML
-    void importFile(ActionEvent event) {
+    void saveItem(ActionEvent event) {
 
     }
 
     @FXML
-    void saveItem(ActionEvent event) {
+    void searchItem(ActionEvent event) {
 
     }
 
