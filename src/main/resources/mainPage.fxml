@@ -3,8 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -13,84 +13,36 @@
    <children>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#importFile" text="Import">
          <font>
-            <Font name="Nirmala UI" size="14.0" />
+            <Font name="Nirmala UI" size="13.0" />
          </font>
       </Button>
-      <Button layoutX="85.0" layoutY="14.0" mnemonicParsing="false" onAction="#exportFile" text="Export">
+      <Button layoutX="81.0" layoutY="14.0" mnemonicParsing="false" onAction="#exportFile" text="Export">
          <font>
-            <Font name="Nirmala UI" size="14.0" />
+            <Font name="Nirmala UI" size="13.0" />
          </font>
       </Button>
-      <SplitPane dividerPositions="0.4999999999999999" layoutX="2.0" layoutY="55.0" prefHeight="306.0" prefWidth="600.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="286.0">
-               <children>
-                  <ListView fx:id="itemList" layoutY="61.0" prefHeight="246.0" prefWidth="298.0" />
-                  <TextField fx:id="searchField" layoutX="14.0" layoutY="13.0" prefHeight="30.0" prefWidth="196.0">
-                     <font>
-                        <Font name="Nirmala UI" size="14.0" />
-                     </font>
-                  </TextField>
-                  <Button layoutX="222.0" layoutY="13.0" mnemonicParsing="false" onAction="#searchItem" text="Search">
-                     <font>
-                        <Font name="Nirmala UI" size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="522.0">
-               <children>
-                  <Label layoutX="14.0" layoutY="15.0" text="Name:">
-                     <font>
-                        <Font name="Nirmala UI" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="14.0" layoutY="52.0" text="Serial Number:">
-                     <font>
-                        <Font name="Nirmala UI" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="15.0" layoutY="89.0" text="Value:">
-                     <font>
-                        <Font name="Nirmala UI" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="nameField" layoutX="60.0" layoutY="12.0" prefHeight="26.0" prefWidth="226.0">
-                     <font>
-                        <Font name="Nirmala UI" size="14.0" />
-                     </font></TextField>
-                  <TextField fx:id="serialField" layoutX="113.0" layoutY="49.0" prefHeight="26.0" prefWidth="173.0">
-                     <font>
-                        <Font name="Nirmala UI" size="14.0" />
-                     </font></TextField>
-                  <TextField fx:id="valueField" layoutX="60.0" layoutY="86.0" prefHeight="26.0" prefWidth="226.0">
-                     <font>
-                        <Font name="Nirmala UI" size="14.0" />
-                     </font></TextField>
-                  <Button layoutX="106.0" layoutY="267.0" mnemonicParsing="false" onAction="#saveItem" text="Save Changes">
-                     <font>
-                        <Font name="Nirmala UI" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="9.0" layoutY="267.0" mnemonicParsing="false" onAction="#selectItem" text="Select Item">
-                     <font>
-                        <Font name="Nirmala UI" size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
-      <Button layoutX="539.0" layoutY="14.0" mnemonicParsing="false" onAction="#getHelp" text="Help">
+      <TableView fx:id="itemTable" layoutY="62.0" prefHeight="297.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="itemName" prefWidth="159.20001220703125" text="Name" />
+          <TableColumn fx:id="itemSerialNum" prefWidth="230.4000244140625" text="Serial Number" />
+            <TableColumn fx:id="itemValue" prefWidth="211.99993896484375" text="Value" />
+        </columns>
+      </TableView>
+      <Button layoutX="530.0" layoutY="14.0" mnemonicParsing="false" onAction="#itemSearch" text="Search">
          <font>
-            <Font name="Nirmala UI" size="14.0" />
+            <Font name="Nirmala UI" size="13.0" />
          </font>
       </Button>
-      <Label layoutX="14.0" layoutY="383.0" text="Sort By:">
+      <TextField fx:id="searchField" layoutX="299.0" layoutY="14.0" prefHeight="27.0" prefWidth="222.0" promptText="Item's name, serial number or value">
          <font>
-            <Font name="Nirmala UI" size="14.0" />
+            <Font name="Nirmala UI" size="13.0" />
+         </font>
+      </TextField>
+      <Label layoutX="14.0" layoutY="382.0" text="Sort By:">
+         <font>
+            <Font name="Nirmala UI" size="13.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="sortChoiceBox" layoutX="69.0" layoutY="380.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="sortChoiceBox" layoutX="67.0" layoutY="379.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

@@ -1,0 +1,47 @@
+@startuml
+class App {
+start()
+changeScene(): can be used to switch between different controllers and scenes.
+}
+
+App *-- mainPageController
+
+class mainPageController {
+itemTable(): items listed using ObservableList
+importFile()
+exportFile()
+itemSearch(): searches table using user input for name/serialNum/value
+sortChoiceBox(): sorts table based on name/serialNum/value
+}
+
+class importController {
+Takes in file path to import file into program.
+}
+
+class exportController {
+Takes in file path to export file to computer as .JSON, .html or .tsv
+}
+
+mainPageController <--> importController: importFile() <
+mainPageController <--> exportController: exportFile() >
+
+class item {
+String name
+String serialNum
+Double value
+}
+
+class inventory {
+Contains arraylist of items to populate table in mainPageController
+---
+ArrayList<item> itemList
+sortList()
+searchList()
+importList()
+exportList()
+}
+
+mainPageController *-- inventory
+inventory *-- item
+
+@enduml
