@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
@@ -12,32 +13,64 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class mainPageController implements Initializable {
-    private final ObservableList<item> itemList = FXCollections.observableArrayList();
+    private ObservableList<item> itemList = FXCollections.observableArrayList();
 
     @FXML private ChoiceBox<String> sortChoiceBox;
     @FXML private TableView<item> itemTable;
     @FXML private TextField searchField;
     @FXML private TableColumn<item, String> itemName;
     @FXML private TableColumn<item, String> itemSerialNum;
-    @FXML private TableColumn<item, String> itemValue;
+    @FXML private TableColumn<item, Double> itemValue;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        inventory inventory = new inventory();
+        itemTable.setEditable(true);
+
         itemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        itemName.setCellFactory(TextFieldTableCell.forTableColumn());
+        itemName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<item, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<item, String> event) {
+                item item = event.getRowValue();
+                item.setItemName(event.getNewValue());
+            }
+        });
+
         itemSerialNum.setCellValueFactory(new PropertyValueFactory<>("itemSerialNum"));
+        itemSerialNum.setCellFactory(TextFieldTableCell.forTableColumn());
+        itemSerialNum.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<item, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<item, String> event) {
+                item item = event.getRowValue();
+                item.setItemSerialNum(event.getNewValue());
+            }
+        });
+
         itemValue.setCellValueFactory(new PropertyValueFactory<>("itemValue"));
+        itemValue.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        itemValue.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<item, Double>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<item, Double> event) {
+                item item = event.getRowValue();
+                item.setItemValue(event.getNewValue());
+            }
+        });
 
-        item item1 = new item("egg", "egg0001", 2);
-        item item2 = new item("car", "car0001", 3);
-        item item3 = new item("meme", "420noscope", 10);
-        item item4 = new item("milk", "milk50", 5);
+        inventory.addItem(new item("egg", "egg0001", 2));
+        inventory.addItem(new item("car", "car0001", 3));
+        inventory.addItem(new item("meme", "memey420", 100));
+        inventory.addItem(new item("bruh", "bruv0k", 5));
 
-        itemList.addAll(item1, item2, item3, item4);
+        itemList = inventory.getItemList();
 
         FilteredList<item> filteredItems = new FilteredList<>(itemList, b -> true);
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
