@@ -5,10 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="filePathField" prefHeight="100.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.importController">
+<AnchorPane prefHeight="100.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.importController">
    <children>
-      <TextField layoutX="11.0" layoutY="40.0" prefHeight="30.0" prefWidth="428.0" promptText="Path of file">
+      <TextField fx:id="filePathField" layoutX="11.0" layoutY="40.0" prefHeight="30.0" prefWidth="428.0" promptText="Path of file">
          <font>
             <Font name="Nirmala UI" size="14.0" />
          </font>

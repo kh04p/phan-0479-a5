@@ -21,7 +21,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class mainPageController implements Initializable {
-    private ObservableList<item> itemList = FXCollections.observableArrayList();
 
     @FXML private ChoiceBox<String> sortChoiceBox;
     @FXML private TableView<item> itemTable;
@@ -32,7 +31,7 @@ public class mainPageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        inventory inventory = new inventory();
+        ObservableList<item> itemList = inventory.getItemList();
         itemTable.setEditable(true);
 
         itemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
@@ -64,13 +63,6 @@ public class mainPageController implements Initializable {
                 item.setItemValue(event.getNewValue());
             }
         });
-
-        inventory.addItem(new item("egg", "egg0001", 2));
-        inventory.addItem(new item("car", "car0001", 3));
-        inventory.addItem(new item("meme", "memey420", 100));
-        inventory.addItem(new item("bruh", "bruv0k", 5));
-
-        itemList = inventory.getItemList();
 
         FilteredList<item> filteredItems = new FilteredList<>(itemList, b -> true);
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {

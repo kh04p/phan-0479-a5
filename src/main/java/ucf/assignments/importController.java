@@ -2,16 +2,21 @@ package ucf.assignments;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TextField;
+
+import java.io.FileNotFoundException;
 
 public class importController {
 
     @FXML
-    private AnchorPane filePathField;
+    private TextField filePathField;
 
     @FXML
-    void importFile(ActionEvent event) {
-
+    void importFile(ActionEvent event) throws FileNotFoundException {
+        inventory inventory = new inventory();
+        String filePath = filePathField.getText().trim();
+        String output = inventory.readFile(filePath);
+        filePathField.setText(output);
     }
 
     @FXML

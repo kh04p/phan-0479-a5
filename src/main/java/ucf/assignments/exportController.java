@@ -2,16 +2,19 @@ package ucf.assignments;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TextField;
 
 public class exportController {
 
     @FXML
-    private AnchorPane filePathField;
+    private TextField filePathField;
 
     @FXML
     void exportFile(ActionEvent event) {
-
+        inventory inventory = new inventory();
+        String filePath = filePathField.getText().trim();
+        String output = inventory.exportHTML(filePath);
+        filePathField.setText(output);
     }
 
     @FXML
