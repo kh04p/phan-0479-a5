@@ -9,12 +9,31 @@ import java.util.Scanner;
 public class inventory {
     private static ObservableList<item> itemList = FXCollections.observableArrayList();
 
-    public void addItem(item item) {
-        itemList.add(item);
-    }
-
     public static ObservableList<item> getItemList() {
         return itemList;
+    }
+
+    public String addItem(String name, String serialNum, double value) {
+        for (int i = 0; i < itemList.size(); i++) {
+            item temp = itemList.get(i);
+            if (temp.getItemName().equals(name) && temp.getItemSerialNum().equals(serialNum) && temp.getItemValue() == value) {
+                return "Item already exists.";
+            }
+        }
+        item item = new item(name, serialNum, value);
+        itemList.add(item);
+        return "Item has been added.";
+    }
+
+    public String deleteItem(String name) {
+        for (int i = 0; i < itemList.size(); i++) {
+            item temp = itemList.get(i);
+            if (temp.getItemName().equals(name)) {
+                itemList.remove(i);
+                return "Item has been removed";
+            }
+        }
+        return "Item cannot be found.";
     }
 
     public String readFile(String filePath) {
@@ -22,9 +41,9 @@ public class inventory {
         if (filePath.contains(".html")) {
             output = readHTML(filePath);
         } else if (filePath.contains(".tsv")) {
-            readTSV(filePath);
+            output = readTSV(filePath);
         } else if (filePath.contains(".json")) {
-            readJSON(filePath);
+            output = readJSON(filePath);
         }
 
         return output;
@@ -89,7 +108,7 @@ public class inventory {
                 } catch (NumberFormatException e) {
                     value = 0;
                 }
-                addItem(new item(name, serialNum, value));
+                itemList.add(new item(name, serialNum, value));
             }
         }
 

@@ -15,22 +15,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.DoubleStringConverter;
-import javafx.util.converter.IntegerStringConverter;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+public class mainPageController {
 
-public class mainPageController implements Initializable {
-
-    @FXML private ChoiceBox<String> sortChoiceBox;
     @FXML private TableView<item> itemTable;
     @FXML private TextField searchField;
     @FXML private TableColumn<item, String> itemName;
     @FXML private TableColumn<item, String> itemSerialNum;
     @FXML private TableColumn<item, Double> itemValue;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         ObservableList<item> itemList = inventory.getItemList();
         itemTable.setEditable(true);
 
@@ -46,46 +41,39 @@ public class mainPageController implements Initializable {
 
         itemSerialNum.setCellValueFactory(new PropertyValueFactory<>("itemSerialNum"));
         itemSerialNum.setCellFactory(TextFieldTableCell.forTableColumn());
-        itemSerialNum.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<item, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<item, String> event) {
-                item item = event.getRowValue();
-                item.setItemSerialNum(event.getNewValue());
-            }
+        itemSerialNum.setOnEditCommit(event -> {
+            item item = event.getRowValue();
+            item.setItemSerialNum(event.getNewValue());
         });
 
         itemValue.setCellValueFactory(new PropertyValueFactory<>("itemValue"));
         itemValue.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-        itemValue.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<item, Double>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<item, Double> event) {
-                item item = event.getRowValue();
-                item.setItemValue(event.getNewValue());
-            }
+        itemValue.setOnEditCommit(event -> {
+            item item = event.getRowValue();
+            item.setItemValue(event.getNewValue());
         });
 
         FilteredList<item> filteredItems = new FilteredList<>(itemList, b -> true);
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredItems.setPredicate(item -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> filteredItems.setPredicate(item -> {
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
 
-                String valueLowerCase = newValue.toLowerCase().trim();
+            String valueLowerCase = newValue.toLowerCase().trim();
 
-                if (item.getItemName().toLowerCase().contains(valueLowerCase)) {
-                    return true;
-                } else if (item.getItemSerialNum().toLowerCase().contains(valueLowerCase)) {
-                    return true;
-                } else if (String.valueOf(item.getItemValue()).contains(valueLowerCase)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
-        });
+            if (item.getItemName().toLowerCase().contains(valueLowerCase)) {
+                return true;
+            } else if (item.getItemSerialNum().toLowerCase().contains(valueLowerCase)) {
+                return true;
+            } else if (String.valueOf(item.getItemValue()).contains(valueLowerCase)) {
+                return true;
+            } else {
+                return false;
+            }
+        }));
 
         SortedList<item> sortedItems = new SortedList<>(filteredItems);
+        sortedItems.comparatorProperty().bind(itemTable.comparatorProperty());
         itemTable.setItems(sortedItems);
     }
 
@@ -102,8 +90,28 @@ public class mainPageController implements Initializable {
     }
 
     @FXML
-    void itemSearch(ActionEvent event) {
+    void newItem(ActionEvent event) {
+        inventory inventory = new inventory();
 
+        String name = String.format("Item #%d", inventory.getItemList().size() + 1);
+        String serialNum = "Item_Serial_Number";
+        double value = 0;
+
+        String output = inventory.addItem(name, serialNum, value);
+        System.out.println(output);
+        initialize();
+    }
+
+    @FXML
+    void deleteItem(ActionEvent event) {
+        inventory inventory = new inventory();
+        item item = itemTable.getSelectionModel().getSelectedItem();
+
+        String name = item.getItemName();
+
+        String output = inventory.deleteItem(name);
+        System.out.println(output);
+        initialize();
     }
 }
 
