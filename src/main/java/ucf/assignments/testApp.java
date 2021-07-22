@@ -11,38 +11,32 @@ import java.util.Scanner;
 public class testApp {
     public static void main(String[] args) throws FileNotFoundException {
         ObservableList<item> itemList = FXCollections.observableArrayList();
-        String filePath = "C:\\Users\\khoa1\\Desktop\\testTable.html";
+        String filePath = "C:\\Users\\khoa1\\Desktop\\testTable.tsv";
         File file = new File(filePath); //takes in file path to read
-        Scanner in = new Scanner(file);
+        Scanner in = null;
         StringBuilder input = new StringBuilder();
 
-        while (in.hasNextLine()) {
-            String myLine = in.nextLine();
-            if (myLine.contains("table") || myLine.contains("<th>") || myLine.contains("<\th>")|| myLine.contains("<tr>")) {
-                continue;
-            }
-            else {
-                myLine = myLine.replaceAll("<td>","").replaceAll("</td>", "").trim();
-                input.append(myLine + "\n");
-            }
+        try {
+            in = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("File cannot be imported. Please try again.");;
         }
 
-        System.out.println(input);
-
-        Scanner in2 = new Scanner(String.valueOf(input));
-        String line = in2.nextLine();
-
-        while (in2.hasNextLine()) {
-            if (line.equals("</tr>")) {
-                line= in2.nextLine();
+        in.useDelimiter("\t");
+        while (in.hasNext()) {
+            String word = in.next().toLowerCase();
+            if (word.equals("name") || word.equals("serial number") || word.equals("value")) {
+                continue;
             } else {
                 String[] temp = new String[3];
                 for (int i = 0; i < temp.length; i++) {
-                    if (line.equals("</tr>")) {
+                    if (word.isEmpty() || word.isBlank()) {
                         temp[i] = "";
                     } else {
-                        temp[i] = line;
-                        line = in2.nextLine();
+                        temp[i] = word;
+                        if (i < temp.length - 1) {
+                            word = in.next();
+                        }
                     }
                 }
                 String name = temp[0];
@@ -53,7 +47,6 @@ public class testApp {
                 } catch (NumberFormatException e) {
                     value = 0;
                 }
-
                 itemList.add(new item(name, serialNum, value));
             }
         }

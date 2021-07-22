@@ -7,8 +7,6 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -31,12 +29,9 @@ public class mainPageController {
 
         itemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
         itemName.setCellFactory(TextFieldTableCell.forTableColumn());
-        itemName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<item, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<item, String> event) {
-                item item = event.getRowValue();
-                item.setItemName(event.getNewValue());
-            }
+        itemName.setOnEditCommit(event -> {
+            item item = event.getRowValue();
+            item.setItemName(event.getNewValue());
         });
 
         itemSerialNum.setCellValueFactory(new PropertyValueFactory<>("itemSerialNum"));
@@ -98,7 +93,7 @@ public class mainPageController {
         double value = 0;
 
         String output = inventory.addItem(name, serialNum, value);
-        System.out.println(output);
+        searchField.setText(output);
         initialize();
     }
 
@@ -110,7 +105,7 @@ public class mainPageController {
         String name = item.getItemName();
 
         String output = inventory.deleteItem(name);
-        System.out.println(output);
+        searchField.setText(output);
         initialize();
     }
 }

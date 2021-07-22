@@ -13,7 +13,7 @@ public class exportController {
     void exportFile(ActionEvent event) {
         inventory inventory = new inventory();
         String filePath = filePathField.getText().trim();
-        String output = inventory.exportHTML(filePath);
+        String output = inventory.exportFile(filePath);
         filePathField.setText(output);
     }
 

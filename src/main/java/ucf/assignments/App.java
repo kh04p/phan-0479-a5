@@ -5,8 +5,6 @@
 package ucf.assignments;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,8 +32,6 @@ public class App extends Application {
             e.printStackTrace();
         }
     }
-
-
 
     //method will change scene using specified fxml file name
     public void changeScene(String fxml) {
