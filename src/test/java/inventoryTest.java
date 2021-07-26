@@ -88,6 +88,17 @@ public class inventoryTest {
 
     @Test
     void deleteItemTest() {
+        inventory inventory = new inventory();
+        inventory.addItem("egg", "3gg", 10.25);
+        inventory.addItem("Acura NSX", "NSX34002XF", 4.99);
 
+        String expectedOutput1 = "Item has been removed";
+        String expectedOutput2 = "Item cannot be found.";
+
+        String actualOutput1 = inventory.deleteItem("Acura NSX");
+        String actualOutput2 = inventory.deleteItem("Audi R8");
+
+        assertEquals(expectedOutput1, actualOutput1);
+        assertEquals(expectedOutput2, actualOutput2);
     }
 }
