@@ -1,3 +1,7 @@
+/*
+ *  UCF COP3330 Summer 2021 Assignment 5 Solution
+ *  Copyright 2021 Khoa Phan
+ */
 import org.junit.jupiter.api.Test;
 import ucf.assignments.inventory;
 
