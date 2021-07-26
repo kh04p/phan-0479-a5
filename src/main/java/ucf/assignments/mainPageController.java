@@ -1,11 +1,9 @@
 package ucf.assignments;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -24,8 +22,9 @@ public class mainPageController {
 
     @FXML
     public void initialize() {
+        //program will get itemList from inventory.java if there is an existing/imported list
         ObservableList<item> itemList = inventory.getItemList();
-        itemTable.setEditable(true);
+        itemTable.setEditable(true); //sets table as editable
 
         itemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
         itemName.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -48,6 +47,7 @@ public class mainPageController {
             item.setItemValue(event.getNewValue());
         });
 
+        //filteredList needed for search function
         FilteredList<item> filteredItems = new FilteredList<>(itemList, b -> true);
         searchField.textProperty().addListener((observable, oldValue, newValue) -> filteredItems.setPredicate(item -> {
             if (newValue == null || newValue.isEmpty()) {
@@ -67,6 +67,7 @@ public class mainPageController {
             }
         }));
 
+        //wraps filteredList in sortedList to allow users to sort items based on categories.
         SortedList<item> sortedItems = new SortedList<>(filteredItems);
         sortedItems.comparatorProperty().bind(itemTable.comparatorProperty());
         itemTable.setItems(sortedItems);
@@ -86,9 +87,10 @@ public class mainPageController {
 
     @FXML
     void newItem(ActionEvent event) {
+        //program will create new item with default values for user to edit afterwards
         inventory inventory = new inventory();
 
-        String name = String.format("Item #%d", inventory.getItemList().size() + 1);
+        String name = String.format("Item #%d", ucf.assignments.inventory.getItemList().size() + 1);
         String serialNum = "Item_Serial_Number";
         double value = 0;
 
@@ -99,6 +101,7 @@ public class mainPageController {
 
     @FXML
     void deleteItem(ActionEvent event) {
+        //program will get name of currently selected item to delete
         inventory inventory = new inventory();
         item item = itemTable.getSelectionModel().getSelectedItem();
 

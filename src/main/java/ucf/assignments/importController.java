@@ -13,6 +13,7 @@ public class importController {
 
     @FXML
     void importFile(ActionEvent event) throws FileNotFoundException {
+        //program will get file path from user before trying to import and display confirmation/error message
         inventory inventory = new inventory();
         String filePath = filePathField.getText().trim();
         String output = inventory.readFile(filePath);

@@ -39,8 +39,8 @@ public class inventoryTest {
     @Test
     void importTSVTest() {
         inventory inventory = new inventory();
-        String filePath1 = "testTable.tsv";
-        String filePath2 = "nonexistent.tsv";
+        String filePath1 = "testTable.txt";
+        String filePath2 = "nonexistent.txt";
 
         String actualOutput1 = inventory.readFile(filePath1);
         String expectedOutput1 = "Import successful! Please click \"Go Back\" to return to main screen.";
@@ -55,7 +55,7 @@ public class inventoryTest {
     @Test
     void exportTSVTest() {
         inventory inventory = new inventory();
-        String filePath1 = "exportedTable.tsv";
+        String filePath1 = "exportedTable.txt";
         String filePath2 = "random.random";
 
         String actualOutput1 = inventory.exportFile(filePath1);
@@ -70,7 +70,20 @@ public class inventoryTest {
 
     @Test
     void addItemTest() {
+        inventory inventory = new inventory();
+        inventory.addItem("egg", "3gg", 10.25);
 
+        String expectedOutput1 = "Item has been added.";
+        String expectedOutput2 = "Item already exists.";
+        String expectedOutput3 = "Duplicate found. Please check name and serial number.";
+
+        String actualOutput1 = inventory.addItem("milk", "m1lk", 5.98);
+        String actualOutput2 = inventory.addItem("egg", "3gg", 10.25);
+        String actualOutput3 = inventory.addItem("egg", "3gg0", 64);
+
+        assertEquals(expectedOutput1, actualOutput1);
+        assertEquals(expectedOutput2, actualOutput2);
+        assertEquals(expectedOutput3, actualOutput3);
     }
 
     @Test

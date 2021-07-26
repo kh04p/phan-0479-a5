@@ -23,13 +23,13 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         stage = primaryStage; //current stage will be duplicated to change scene later
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/mainPage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/mainPage.fxml")); // IntelliJ could not locate fxml without "/" due to a bug.
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("Main Page");
+            stage.setTitle("Inventory Database");
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Unable to load program. Please try again.");
         }
     }
 

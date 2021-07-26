@@ -11,6 +11,7 @@ public class exportController {
 
     @FXML
     void exportFile(ActionEvent event) {
+        //program will get file path from user before trying to export and display confirmation/error message
         inventory inventory = new inventory();
         String filePath = filePathField.getText().trim();
         String output = inventory.exportFile(filePath);

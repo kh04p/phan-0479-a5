@@ -11,7 +11,6 @@ itemTable(): items listed using ObservableList
 importFile()
 exportFile()
 itemSearch(): searches table using user input for name/serialNum/value
-sortChoiceBox(): sorts table based on name/serialNum/value
 }
 
 class importController {
@@ -34,9 +33,7 @@ Double value
 class inventory {
 Contains arraylist of items to populate table in mainPageController
 ---
-ArrayList<item> itemList
-sortList()
-searchList()
+ObservableList<item> itemList
 importList()
 exportList()
 }
